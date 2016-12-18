@@ -74,7 +74,7 @@ public class VipInspectChartVo {
 	private int maxLine = 1;
 
 	/**
-	 * Calculate all kinds of last page，Next page，And index.
+	 * Calculate all kinds of last page，Next，And index.
 	 */
 	public void calu() {
 		//totalPage计算出来 0 为没有

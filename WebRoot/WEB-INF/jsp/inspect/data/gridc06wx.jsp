@@ -111,8 +111,8 @@
 </head>
 <body>
          <div class="mui-content-padded">
-				<a id="nextup" class="mui-login-input"  onClick="next(-1)" >Previous page</a>
-				<a id="nextdown" class="mui-login-input" onClick="next(1)">next page</a>
+				<a id="nextup" class="mui-login-input"  onClick="next(-1)" >Previous</a>
+				<a id="nextdown" class="mui-login-input" onClick="next(1)">Next</a>
 		 </div>	  
 		<input type="hidden" name="cardCode" id="cardCode" value="${cardCode}">
 		<input type="hidden" name="inspectCode" id="inspectCode" value="${inspectCode}">
@@ -121,7 +121,7 @@
 		<table id="base_table"  class="table table-striped table-bordered" >
 		<!--  <tr><th>Name</th><th>Detection value</th><th>reference value</th></tr>-->
 		</table>
-		<p class="title">&nbsp;No.<span id="pagenum">0</span>strip,common${total}Bar test data</p>
+		<p class="title">&nbsp;No.<span id="pagenum">0</span>strip,${total} items totally</p>
 
 	
 </body>

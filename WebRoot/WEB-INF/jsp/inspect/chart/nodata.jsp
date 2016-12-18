@@ -29,7 +29,7 @@ ${data }
 	</tr>
 	<tr style="width: 100%;height: 50px">
 		<td width="25%" style="color:#FFF;font-size: 36px;line-height: 50px;">${data.inspectName }</td>
-		<td width="50%"><button class="w3-btn w3-round-xxlarge">Previous page</button> <button class="w3-btn w3-round-xxlarge">next page</button></td>
+		<td width="50%"><button class="w3-btn w3-round-xxlarge">Previous</button> <button class="w3-btn w3-round-xxlarge">Next</button></td>
 		<td width="25%"></td>
 	</tr>
 </table>

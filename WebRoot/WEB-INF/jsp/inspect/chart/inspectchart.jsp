@@ -65,10 +65,10 @@
 			<td style="color:#FFF;" class="title"  align="left">${data.subTitle.title }</td>
 			<td class="abtn"  align="center">
 				<c:if test="${data.frontPage < data.currentPage }">
-					<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>vipInspectData/inspectchart/${data.cardCode }/${data.inspectCode }/${data.subTitle.code }/${data.frontPage }.html">Previous page</a> 
+					<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>vipInspectData/inspectchart/${data.cardCode }/${data.inspectCode }/${data.subTitle.code }/${data.frontPage }.html">Previous</a> 
 				</c:if>
 				<c:if test="${data.nextPage > data.currentPage }">
-					<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>vipInspectData/inspectchart/${data.cardCode }/${data.inspectCode }/${data.subTitle.code }/${data.nextPage }.html">next page</a>
+					<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>vipInspectData/inspectchart/${data.cardCode }/${data.inspectCode }/${data.subTitle.code }/${data.nextPage }.html">Next</a>
 				</c:if>
 			</td> 
 			<td class="add">&nbsp;</td>
@@ -76,10 +76,10 @@
 		<tr style="width: 100%;" class="trheight2">
 			<td class="abtn2" align="center">
 				<c:if test="${data.frontPage < data.currentPage }">
-					<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>vipInspectData/inspectchart/${data.cardCode }/${data.inspectCode }/${data.subTitle.code }/${data.frontPage }.html">Previous page</a> 
+					<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>vipInspectData/inspectchart/${data.cardCode }/${data.inspectCode }/${data.subTitle.code }/${data.frontPage }.html">Previous</a> 
 				</c:if>
 				<c:if test="${data.nextPage > data.currentPage }">
-					<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>vipInspectData/inspectchart/${data.cardCode }/${data.inspectCode }/${data.subTitle.code }/${data.nextPage }.html">next page</a>
+					<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>vipInspectData/inspectchart/${data.cardCode }/${data.inspectCode }/${data.subTitle.code }/${data.nextPage }.html">Next</a>
 				</c:if>
 			</td> 
 		</tr> --%>

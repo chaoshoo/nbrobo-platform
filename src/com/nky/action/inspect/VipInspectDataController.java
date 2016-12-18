@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.testng.collections.Lists;
 import org.testng.collections.Maps;
@@ -40,37 +41,56 @@ public class VipInspectDataController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(VipInspectDataController.class);
 	
-	private static Map<String,String[]> CHART_UNIT_NAME_MAP = new HashMap<String,String[]>();
+	private static Map<String,String[]> CHART_UNIT_NAME_MAP = new HashMap<String,String[]>();private static Map<String,String[]> CHART_UNIT_NAME_MAP1 = new HashMap<String,String[]>();
 	static {
-		CHART_UNIT_NAME_MAP.put("C1", new String[]{"Blood pressure gauge history","Mm Hg","Systolic Blood Pressure/Diastolic Blood Pressure","mmHg"});
+		CHART_UNIT_NAME_MAP.put("C1", new String[]{"Blood pressure gauge history","mmHg","Systolic Blood Pressure/Diastolic Blood Pressure","mmHg"});
 		CHART_UNIT_NAME_MAP.put("C2", new String[]{"Pulse rate history","Stroke/branch","Pulse rate","bpm"});
-		CHART_UNIT_NAME_MAP.put("C3", new String[]{"Blood glucose history","Mmol/rise","blood sugar","mmol/L"});
+		CHART_UNIT_NAME_MAP.put("C3", new String[]{"Blood glucose history","Mmol/rise","blood glucose","mmol/L"});
 		CHART_UNIT_NAME_MAP.put("C4", new String[]{"History of systolic blood pressure","Mm Hg","Systolic Blood Pressure","mmHg"});
 		CHART_UNIT_NAME_MAP.put("C5", new String[]{"Diastolic blood pressure history","Mm Hg","Diastolic Blood Pressure","mmHg"});
-		CHART_UNIT_NAME_MAP.put("C6", new String[]{"Random blood glucose history","Mmol/rise","blood sugar","mmol/L"});
-		CHART_UNIT_NAME_MAP.put("C7", new String[]{"Pre-meal blood glucose history","Mmol/rise","blood sugar","mmol/L"});
-		CHART_UNIT_NAME_MAP.put("C8", new String[]{"Postprandial blood glucose history","Mmol/rise","blood sugar","mmol/L"});
+		CHART_UNIT_NAME_MAP.put("C6", new String[]{"GLU history","Mmol/rise","blood sugar","mmol/L"});
+		CHART_UNIT_NAME_MAP.put("C7", new String[]{"FPG history","Mmol/rise","blood sugar","mmol/L"});
+		CHART_UNIT_NAME_MAP.put("C8", new String[]{"PPG history","Mmol/rise","blood sugar","mmol/L"});
 		CHART_UNIT_NAME_MAP.put("SYS", new String[]{"History of systolic blood pressure","Mm Hg","Systolic Blood Pressure","mmHg"});
 		CHART_UNIT_NAME_MAP.put("DIA", new String[]{"Diastolic blood pressure history","Mm Hg","Diastolic Blood Pressure","mmHg"});
 		
 		//上面的都会被弃用,2016.9.7
-		CHART_UNIT_NAME_MAP.put("SYS-DIA", new String[]{"Blood pressure history","Mm Hg","Systolic Blood Pressure/Diastolic Blood Pressure","mmHg"});
+		CHART_UNIT_NAME_MAP.put("SYS-DIA", new String[]{"Blood pressure history","mm Hg","Systolic Blood Pressure/Diastolic Blood Pressure","mm Hg"});
 		CHART_UNIT_NAME_MAP.put("PR", new String[]{"Pulse rate history","Stroke/branch","Pulse rate","bpm"});
-		CHART_UNIT_NAME_MAP.put("GLU0", new String[]{"Random blood glucose history","Mmol/rise","Random blood glucose","mmol/L"});
-		CHART_UNIT_NAME_MAP.put("GLU1", new String[]{"Pre-meal blood glucose history","Mmol/rise","Pre-meal blood glucose","mmol/L"});
-		CHART_UNIT_NAME_MAP.put("GLU2", new String[]{"Postprandial blood glucose history","Mmol/rise","Postprandial blood glucose","mmol/L"});
+		CHART_UNIT_NAME_MAP.put("GLU0", new String[]{"GLU history","Mmol/rise","GLU","mmol/L"});
+		CHART_UNIT_NAME_MAP.put("GLU1", new String[]{"FPG history","Mmol/rise","FPG","mmol/L"});
+		CHART_UNIT_NAME_MAP.put("GLU2", new String[]{"PPG history","Mmol/rise","PPG","mmol/L"});
 		
 		//2016-09-22
 		CHART_UNIT_NAME_MAP.put("HEIGHT", new String[]{"History of height","cm","height","cm"});
 		CHART_UNIT_NAME_MAP.put("WEIGHT", new String[]{"Weight history","kg","weight","kg"});
-		CHART_UNIT_NAME_MAP.put("BMI", new String[]{"BMIHistory record","","BMI",""});
-		CHART_UNIT_NAME_MAP.put("BMI-WH", new String[]{"BMIHistory record","","BMI",""});
+		CHART_UNIT_NAME_MAP.put("BMI", new String[]{"BMI History record","","BMI",""});
+		CHART_UNIT_NAME_MAP.put("BMI-WH", new String[]{"BMI History record","","BMI",""});
 
 		CHART_UNIT_NAME_MAP.put("TEMP", new String[]{"Temperature History","℃","temperature","℃"}); 
 		
 		CHART_UNIT_NAME_MAP.put("SPO2", new String[]{"Blood oxygen history","","Oxygen",""});
 		CHART_UNIT_NAME_MAP.put("PR2", new String[]{"Pulse rate history","Stroke/branch","Pulse rate","bpm"});
 		CHART_UNIT_NAME_MAP.put("SPO2-PR2", new String[]{"Blood oxygen history","","",""});
+		
+		//上面的都会被弃用,2016.9.7
+		CHART_UNIT_NAME_MAP1.put("SYS-DIA", new String[]{"血压历史记录","毫米汞柱","收缩压/舒张压","mmHg"});
+		CHART_UNIT_NAME_MAP1.put("PR", new String[]{"脉率历史记录","搏/分","脉率","bpm"});
+		CHART_UNIT_NAME_MAP1.put("GLU0", new String[]{"随机血糖历史记录","毫摩尔/升","随机血糖","mmol/L"});
+		CHART_UNIT_NAME_MAP1.put("GLU1", new String[]{"餐前血糖历史记录","毫摩尔/升","餐前血糖","mmol/L"});
+		CHART_UNIT_NAME_MAP1.put("GLU2", new String[]{"餐后血糖历史记录","毫摩尔/升","餐后血糖","mmol/L"});
+		
+		//2016-09-22
+		CHART_UNIT_NAME_MAP1.put("HEIGHT", new String[]{"身高历史记录","cm","身高","cm"});
+		CHART_UNIT_NAME_MAP1.put("WEIGHT", new String[]{"体重历史记录","kg","体重","kg"});
+		CHART_UNIT_NAME_MAP1.put("BMI", new String[]{"BMI历史记录","","BMI",""});
+		CHART_UNIT_NAME_MAP1.put("BMI-WH", new String[]{"BMI历史记录","","BMI",""});
+
+		CHART_UNIT_NAME_MAP1.put("TEMP", new String[]{"体温历史记录","℃","体温","℃"}); 
+		
+		CHART_UNIT_NAME_MAP1.put("SPO2", new String[]{"血氧历史记录","","血氧",""});
+		CHART_UNIT_NAME_MAP1.put("PR2", new String[]{"脉率历史记录","搏/分","脉率","bpm"});
+		CHART_UNIT_NAME_MAP1.put("SPO2-PR2", new String[]{"血氧历史记录","","",""});
 //		
 //		CHART_UNIT_NAME_MAP.put("LEU", new String[]{"白细胞历史记录","","",""});
 		
@@ -142,7 +162,7 @@ public class VipInspectDataController {
 				//如果有详细的指标配置，就按详细的年龄和性别来，如果没有，就用默认的
 				if(kpiRecordFz != null && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MAX")) && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MIN"))){
 					sb.append(r.getStr("NAME"));
-					sb.append("normal range:");
+					sb.append(" normal range:");
 					sb.append(kpiRecordFz.getStr("FZ_MIN"));
 //					sb.append(vo.getUnit());
 					sb.append("~");
@@ -151,7 +171,7 @@ public class VipInspectDataController {
 					sb.append("    ");
 				}else  if(StringUtils.isNotEmpty(r.getStr("KPI_MAX")) && StringUtils.isNotEmpty(r.getStr("KPI_MIN"))){
 					sb.append(r.getStr("NAME"));
-					sb.append("normal range:");
+					sb.append(" normal range:");
 					sb.append(r.getStr("KPI_MIN"));
 //					sb.append(vo.getUnit());
 					sb.append("~");
@@ -268,7 +288,8 @@ public class VipInspectDataController {
 	 */
 	@RequestMapping(value = "/charts/{cardCode}/{inspectCode}/{code}/{page}")
 	public String charts(ModelMap map,@PathVariable("cardCode") String cardCode,@PathVariable("inspectCode") String inspectCode,
-			@PathVariable("code") String code,@PathVariable("page") Integer page){
+			@PathVariable("code") String code,@PathVariable("page") Integer page, 
+			@RequestParam(value = "lan", required = false, defaultValue = "en" )String lan){
 		if(StringUtils.isEmpty(cardCode) || StringUtils.isEmpty(inspectCode) || StringUtils.isEmpty(code) || null == page || page < 0){
 			map.addAttribute("message","Incomplete data!");
 			return "inspect/chartdemo/error";
@@ -278,14 +299,21 @@ public class VipInspectDataController {
 			map.addAttribute("message","Incomplete data!");
 			return "inspect/chartdemo/error";
 		}
+		Map<String,String[]> dictMap = null;
+		if (null != lan && lan.equalsIgnoreCase("cn")) {
+			dictMap = CHART_UNIT_NAME_MAP1;
+		} else {
+			dictMap = CHART_UNIT_NAME_MAP;
+		}
+		map.addAttribute("lan", lan);
 		try{
 			//保留数据
 			VipInspectChartVo vo = new VipInspectChartVo();
 			vo.setCardCode(cardCode);
 			vo.setCode(code);
 			vo.setInspectCode(inspectCode);
-			vo.setUnit(CHART_UNIT_NAME_MAP.get(code)[1]);
-			vo.setTitle(CHART_UNIT_NAME_MAP.get(code)[0]);
+			vo.setUnit(dictMap.get(code)[1]);
+			vo.setTitle(dictMap.get(code)[0]);
 			
 			Integer age = vipRecord.getInt("AGE");
 			if(age == null){
@@ -313,7 +341,7 @@ public class VipInspectDataController {
 					//如果有详细的指标配置，就按详细的年龄和性别来，如果没有，就用默认的
 					if(kpiRecordFz != null && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MAX")) && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append("normal range:");
+						sb.append(" ormal range:");
 						sb.append(kpiRecordFz.getStr("FZ_MIN"));
 						sb.append(vo.getUnit());
 						sb.append("~");
@@ -322,7 +350,7 @@ public class VipInspectDataController {
 						sb.append("    ");
 					}else  if(StringUtils.isNotEmpty(r.getStr("KPI_MAX")) && StringUtils.isNotEmpty(r.getStr("KPI_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append("normal range:");
+						sb.append(" normal range:");
 						sb.append(r.getStr("KPI_MIN"));
 						sb.append(vo.getUnit());
 						sb.append("~");
@@ -431,7 +459,8 @@ public class VipInspectDataController {
 	 */
 	@RequestMapping(value = "/inspectchart/{cardCode}/{inspectCode}/{code}/{page}")
 	public String inspectchart(ModelMap map,@PathVariable("cardCode") String cardCode,@PathVariable("inspectCode") String inspectCode,
-			@PathVariable("code") String code,@PathVariable("page") Integer page){
+			@PathVariable("code") String code,@PathVariable("page") Integer page, 
+			@RequestParam(value="lan", required = false, defaultValue = "en")String lan){
 		if(StringUtils.isEmpty(cardCode) || StringUtils.isEmpty(inspectCode) || StringUtils.isEmpty(code) || null == page || page < 0){
 			map.addAttribute("message","Incomplete data!");
 			return "inspect/chartdemo/error";
@@ -441,6 +470,13 @@ public class VipInspectDataController {
 			map.addAttribute("message","Incomplete data!");
 			return "inspect/chartdemo/error";
 		}
+		Map<String,String[]> dictMap = null;
+		if (null != lan && lan.equalsIgnoreCase("cn")) {
+			dictMap = CHART_UNIT_NAME_MAP1;
+		} else {
+			dictMap = CHART_UNIT_NAME_MAP;
+		}
+		map.addAttribute("lan", lan);
 		try{
 			//保留数据
 			VipInspectChartVo vo = new VipInspectChartVo();
@@ -462,15 +498,15 @@ public class VipInspectDataController {
 							for(String desTmp : desArr){
 								if(StringUtils.isNotEmpty(desTmp)){
 									//new String[]{"餐后血糖历史记录","毫摩尔/升","餐后血糖","mmol/L"});
-									String name = CHART_UNIT_NAME_MAP.get(desTmp)[2];
+									String name = dictMap.get(desTmp)[2];
 									if(nametemp.contains(name)){
 										continue;
 									}
 									if(StringUtils.isEmpty(name) && desTmp.indexOf("-")>0){
-										name = CHART_UNIT_NAME_MAP.get(desTmp.split("-")[0])[2]+"-"+CHART_UNIT_NAME_MAP.get(desTmp.split("-")[1])[2];
+										name = dictMap.get(desTmp.split("-")[0])[2]+"-"+dictMap.get(desTmp.split("-")[1])[2];
 									}
 									InspectSubTitleVo sub = new InspectSubTitleVo(desTmp,name,
-											CHART_UNIT_NAME_MAP.get(desTmp)[0], CHART_UNIT_NAME_MAP.get(desTmp)[3]) ; 
+											dictMap.get(desTmp)[0], dictMap.get(desTmp)[3]) ; 
 									CHART_SUBTITLE_LIST.add(sub);
 									if(code.equals(desTmp)){
 										sub.setChecked(true);
@@ -525,7 +561,7 @@ public class VipInspectDataController {
 					//如果有详细的指标配置，就按详细的年龄和性别来，如果没有，就用默认的
 					if(kpiRecordFz != null && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MAX")) && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append("normal range:");
+						sb.append(" normal range:");
 						sb.append(kpiRecordFz.getStr("FZ_MIN"));
 //						sb.append(vo.getUnit());
 						sb.append("~");
@@ -534,7 +570,7 @@ public class VipInspectDataController {
 						sb.append("    ");
 					}else  if(StringUtils.isNotEmpty(r.getStr("KPI_MAX")) && StringUtils.isNotEmpty(r.getStr("KPI_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append("normal range:");
+						sb.append(" normal range:");
 						sb.append(r.getStr("KPI_MIN"));
 //						sb.append(vo.getUnit());
 						sb.append("~");
@@ -663,7 +699,8 @@ public class VipInspectDataController {
 	 */
 	@RequestMapping(value = "/chartall/{cardCode}/{inspectCode}/{code}/{resolution}/{page}")
 	public String chartall(ModelMap map,@PathVariable("cardCode") String cardCode,@PathVariable("inspectCode") String inspectCode,
-			@PathVariable("code") String code,@PathVariable("resolution") String resolution,@PathVariable("page") Integer page){
+			@PathVariable("code") String code,@PathVariable("resolution") String resolution,@PathVariable("page") Integer page, 
+			@RequestParam(value = "lan", required = false, defaultValue = "en") String lan){
 		if(StringUtils.isEmpty(cardCode) || StringUtils.isEmpty(inspectCode) || StringUtils.isEmpty(code) || null == page || page < 0){
 			map.addAttribute("message","Incomplete data!");
 			return "inspect/chartdemo/error";
@@ -673,6 +710,13 @@ public class VipInspectDataController {
 			map.addAttribute("message","Incomplete data!");
 			return "inspect/chartdemo/error";
 		}
+		Map<String,String[]> dictMap = null;
+		if (null != lan && lan.equalsIgnoreCase("cn")) {
+			dictMap = CHART_UNIT_NAME_MAP1;
+		} else {
+			dictMap = CHART_UNIT_NAME_MAP;
+		}
+		map.addAttribute("lan", lan);
 		try{
 			//保留数据
 			VipInspectChartVo vo = new VipInspectChartVo();
@@ -694,17 +738,17 @@ public class VipInspectDataController {
 							for(String desTmp : desArr){
 								if(StringUtils.isNotEmpty(desTmp)){
 									//new String[]{"餐后血糖历史记录","毫摩尔/升","餐后血糖","mmol/L"});
-									String name = CHART_UNIT_NAME_MAP.get(desTmp)[2];
+									String name = dictMap.get(desTmp)[2];
 									if(nametemp.contains(name)){
 										continue;
 									}else{
 										nametemp.add(name);
 									}
 									if(StringUtils.isEmpty(name) && desTmp.indexOf("-")>0){
-										name = CHART_UNIT_NAME_MAP.get(desTmp.split("-")[0])[2]+"-"+CHART_UNIT_NAME_MAP.get(desTmp.split("-")[1])[2];
+										name = dictMap.get(desTmp.split("-")[0])[2]+"-"+dictMap.get(desTmp.split("-")[1])[2];
 									}
 									InspectSubTitleVo sub = new InspectSubTitleVo(desTmp,name,
-											CHART_UNIT_NAME_MAP.get(desTmp)[0], CHART_UNIT_NAME_MAP.get(desTmp)[3]) ; 
+											dictMap.get(desTmp)[0], dictMap.get(desTmp)[3]) ; 
 									CHART_SUBTITLE_LIST.add(sub);
 									if(code.equals(desTmp)){
 										sub.setChecked(true);
@@ -759,7 +803,7 @@ public class VipInspectDataController {
 					//如果有详细的指标配置，就按详细的年龄和性别来，如果没有，就用默认的
 					if(kpiRecordFz != null && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MAX")) && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append("normal range:");
+						sb.append(" normal range:");
 						sb.append(kpiRecordFz.getStr("FZ_MIN"));
 //						sb.append(vo.getUnit());
 						sb.append("~");
@@ -768,7 +812,7 @@ public class VipInspectDataController {
 						sb.append("    ");
 					}else  if(StringUtils.isNotEmpty(r.getStr("KPI_MAX")) && StringUtils.isNotEmpty(r.getStr("KPI_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append("normal range:");
+						sb.append(" normal range:");
 						sb.append(r.getStr("KPI_MIN"));
 //						sb.append(vo.getUnit());
 						sb.append("~");
@@ -931,13 +975,15 @@ public class VipInspectDataController {
 
 	@RequestMapping(value = "/getDatagrid/{cardCode}/{inspectCode}/{code}/{resolution}/{page}")
 	public String getDatagrid(HttpServletRequest request,@PathVariable("cardCode") String cardCode,@PathVariable("inspectCode") String inspectCode,
-			@PathVariable("code") String code,@PathVariable("resolution") String resolution,@PathVariable("page") Integer page) 
+			@PathVariable("code") String code,@PathVariable("resolution") String resolution,@PathVariable("page") Integer page, 
+			@RequestParam(value="lan", required = false, defaultValue = "en")String lan) 
 		{
 			if(inspectCode.toLowerCase().equals("c06")){
 				//查询总检测条数
 				Record totalRecord = Db.findFirst("select count(*) as TOTAL  from vip_inspect_data where card_code = ? and inspect_code = ? " ,cardCode,inspectCode);
 				Long totalData = totalRecord.getLong("TOTAL");
 				request.setAttribute("total", totalData);
+				request.setAttribute("lan", lan);
 				if(request.getParameter("type") != null && "wx".equals(request.getParameter("type"))){
 					return "inspect/data/gridc06wx";
 				}
@@ -949,7 +995,8 @@ public class VipInspectDataController {
 	
 	@RequestMapping(value = "/getDatac06")
 	@ResponseBody
-	public String getDatac06(HttpServletRequest request) {
+	public String getDatac06(HttpServletRequest request, 
+			@RequestParam(value="lan", required = false, defaultValue = "en")String lan) {
 		String cardCode = request.getParameter("cardCode");
 		String inspectCode = "C06";
 		String page = request.getParameter("page");
@@ -958,6 +1005,9 @@ public class VipInspectDataController {
 		List<Map<String,Object>> li = Lists.newArrayList();
 		try {
 			String sql = "select code,name,inspect_code,kpi_max,kpi_min from inspect_kpi_config where inspect_code=?";
+			if (null != lan && lan.equalsIgnoreCase("cn")) {
+				sql = "select code,name,inspect_code,kpi_max,kpi_min from inspect_kpi_config_cn where inspect_code=?";
+			} 
 			List<Record> list = Db.find(sql,inspectCode);
 			Record record = Db.findFirst("select * from vip_inspect_data where card_code = ?  and inspect_code = ? and INSPECT_TIME is not null  order by inspect_time desc limit ?,? "
 					,cardCode,inspectCode,Integer.parseInt(page)-1,1);	

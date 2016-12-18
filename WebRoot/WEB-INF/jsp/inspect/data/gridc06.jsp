@@ -126,8 +126,16 @@
 </head>
 <body>
          <div class="mui-content-padded">
-				<input type="button" id="nextup" class=" subtitle"  onfocus="addclass('nextup')" onblur="removeclass('nextup')" onClick="next(-1)" value="Previous page"></input>
-				<input type="button" id="nextdown" class=" subtitle"  onfocus="addclass('nextdown')" onblur="removeclass('nextdown')" onClick="next(1)" value="next page"></input>
+         <c:choose>
+         <c:when test="${lan eq 'cn'}">
+		 		<input type="button" id="nextup" class=" subtitle"  onfocus="addclass('nextup')" onblur="removeclass('nextup')" onClick="next(-1)" value="上一页"></input>
+				<input type="button" id="nextdown" class=" subtitle"  onfocus="addclass('nextdown')" onblur="removeclass('nextdown')" onClick="next(1)" value="下一页"></input>
+		 </c:when>
+		 <c:otherwise>
+				<input type="button" id="nextup" class=" subtitle"  onfocus="addclass('nextup')" onblur="removeclass('nextup')" onClick="next(-1)" value="Previous"></input>
+				<input type="button" id="nextdown" class=" subtitle"  onfocus="addclass('nextdown')" onblur="removeclass('nextdown')" onClick="next(1)" value="Next"></input>
+		 </c:otherwise>
+		 </c:choose>
 		 </div>	  
 		<input type="hidden" name="cardCode" id="cardCode" value="${cardCode}">
 		<input type="hidden" name="inspectCode" id="inspectCode" value="${inspectCode}">
@@ -136,7 +144,14 @@
 		<table id="base_table"  class="table table-striped table-bordered" >
 		<!--  <tr><th>Name</th><th>Detection value</th><th>reference value</th></tr>-->
 		</table>
-		<p class="title">&nbsp;No.<span id="pagenum">0</span>strip,common${total}Bar test data</p>
+		<c:choose>
+         <c:when test="${lan eq 'cn'}">
+		<p class="title">&nbsp;第<span id="pagenum">0</span>条,共${total}条检测数据</p>
+		 </c:when>
+		 <c:otherwise>
+		<p class="title">&nbsp;No.<span id="pagenum">0</span>strip, ${total} items totally</p>
+		</c:otherwise>
+		</c:choose>
 
 	
 </body>
@@ -162,15 +177,30 @@ function removeclass(obj){
 }
 function list(){
 	var cardCode = $("#cardCode").val();
-	var html = "<thead><tr><th>Check item</th><th>Detection value</th><th>reference value</th> </tr></thead>";
+	<c:choose>
+    <c:when test="${lan eq 'cn'}">
+    var html = "<thead><tr><th>检查项</th><th>检测值</th><th>参考值</th> </tr></thead>";
+	 </c:when>
+	 <c:otherwise>
+	 var html = "<thead><tr><th>Check item</th><th>Detection value</th><th>reference value</th> </tr></thead>";
+	</c:otherwise>
+	</c:choose>
+	
 	$.ajax({
-		url:"vipInspectData/getDatac06.json?v="+new Date().getTime(),
+		url:"vipInspectData/getDatac06.json?v="+new Date().getTime() + "&lan=${lan}",
 		type:"get",
 		dataType:"json",
 		data:"cardCode="+cardCode+"&page="+page,
 		success:function(data){
 			if(data.flag=='true'){
-				$("#spetime_time").html("&nbsp;Detection time:"+data.inspect_time);
+				<c:choose>
+			    <c:when test="${lan eq 'cn'}">
+				$("#spetime_time").html("&nbsp;检查时间:"+data.inspect_time);
+				 </c:when>
+				 <c:otherwise>
+					$("#spetime_time").html("&nbsp;Time:"+data.inspect_time);
+				</c:otherwise>
+				</c:choose>
 				$("#pagenum").html(page);
 				html+="<tbody>";
 				$.each(data.list, function(i, item){   

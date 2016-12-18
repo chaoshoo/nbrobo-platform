@@ -35,10 +35,10 @@
 		<td width="25%" style="color:#FFF;font-size: 36px;line-height: 50px;">${data.inspectName }</td>
 		<td width="50%">
 			<c:if test="${data.frontPage < data.currentPage }">
-				<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>/vipInspectData/chart/${data.cardCode }/${data.inspectCode }/${data.detailCode }/${data.frontPage }.html">Previous page</a> 
+				<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>/vipInspectData/chart/${data.cardCode }/${data.inspectCode }/${data.detailCode }/${data.frontPage }.html">Previous</a> 
 			</c:if>
 			<c:if test="${data.nextPage > data.currentPage }">
-				<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>/vipInspectData/chart/${data.cardCode }/${data.inspectCode }/${data.detailCode }/${data.nextPage }.html">next page</a>
+				<a class="w3-btn w3-round-xxlarge" href="<%=basePath%>/vipInspectData/chart/${data.cardCode }/${data.inspectCode }/${data.detailCode }/${data.nextPage }.html">Next</a>
 			</c:if>
 		</td>
 		<td width="25%"></td>
