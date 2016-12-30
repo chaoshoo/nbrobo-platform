@@ -326,7 +326,11 @@ public class VipInspectDataController {
 			Map<String,String> DETAILCODE_NAME_MAP = new HashMap<String,String>();
 			Map<String,String> DETAILCODE_UNIT_MAP = new HashMap<String,String>();
 			//kpi的数据
-			List<Record> kpiRecordList = Db.find("select CODE,NAME,UNIT,KPI_MAX,KPI_MIN from inspect_kpi_config  where des like ?","%,"+code+",%");
+			String sql = "select CODE,NAME,UNIT,KPI_MAX,KPI_MIN from inspect_kpi_config  where des like ?";
+			if (lan.equals("cn")) {
+				sql = "select CODE,NAME,UNIT,KPI_MAX,KPI_MIN from inspect_kpi_config_cn  where des like ?";
+			}
+			List<Record> kpiRecordList = Db.find(sql ,"%,"+code+",%");
 			StringBuilder sb = new StringBuilder("");
 			Set<String> CODE_SET = new HashSet<String>();
 			if(kpiRecordList != null){
@@ -341,7 +345,11 @@ public class VipInspectDataController {
 					//如果有详细的指标配置，就按详细的年龄和性别来，如果没有，就用默认的
 					if(kpiRecordFz != null && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MAX")) && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append(" ormal range:");
+						if (lan.equals("cn")) {
+							sb.append(" 正常值:");							
+						} else {
+							sb.append(" normal range:");
+						}
 						sb.append(kpiRecordFz.getStr("FZ_MIN"));
 						sb.append(vo.getUnit());
 						sb.append("~");
@@ -350,7 +358,11 @@ public class VipInspectDataController {
 						sb.append("    ");
 					}else  if(StringUtils.isNotEmpty(r.getStr("KPI_MAX")) && StringUtils.isNotEmpty(r.getStr("KPI_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append(" normal range:");
+						if (lan.equals("cn")) {
+							sb.append(" 正常值:");							
+						} else {
+							sb.append(" normal range:");
+						}
 						sb.append(r.getStr("KPI_MIN"));
 						sb.append(vo.getUnit());
 						sb.append("~");
@@ -485,7 +497,11 @@ public class VipInspectDataController {
 			vo.setInspectCode(inspectCode); 
 			
 			//kpi的数据
-			List<Record> desRecordList = Db.find("select DISTINCT des from inspect_kpi_config  where inspect_code  =?",inspectCode);
+			String sql = "select DISTINCT des from inspect_kpi_config  where inspect_code  =?";
+			if (lan.equals("cn")) {
+				sql = "select DISTINCT des from inspect_kpi_config_cn  where inspect_code  =?";
+			}
+			List<Record> desRecordList = Db.find(sql, inspectCode);
 			List<InspectSubTitleVo> CHART_SUBTITLE_LIST = new ArrayList<InspectSubTitleVo>();//List of all the charts
 			boolean matchTab = false;
 			Set<String> nametemp = Sets.newHashSet();
@@ -546,7 +562,11 @@ public class VipInspectDataController {
 			Map<String,String> DETAILCODE_NAME_MAP = new HashMap<String,String>();
 			Map<String,String> DETAILCODE_UNIT_MAP = new HashMap<String,String>();
 			//kpi的数据
-			List<Record> kpiRecordList = Db.find("select CODE,NAME,UNIT,KPI_MAX,KPI_MIN from inspect_kpi_config  where des like ?","%,"+code+",%");
+			sql = "select CODE,NAME,UNIT,KPI_MAX,KPI_MIN from inspect_kpi_config  where des like ?";
+			if (lan.equals("cn")) {
+				sql = "select CODE,NAME,UNIT,KPI_MAX,KPI_MIN from inspect_kpi_config_cn where des like ?";
+			}
+			List<Record> kpiRecordList = Db.find(sql, "%,"+code+",%");
 			StringBuilder sb = new StringBuilder("");
 			Set<String> CODE_SET = new HashSet<String>();
 			if(kpiRecordList != null){
@@ -561,7 +581,11 @@ public class VipInspectDataController {
 					//如果有详细的指标配置，就按详细的年龄和性别来，如果没有，就用默认的
 					if(kpiRecordFz != null && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MAX")) && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append(" normal range:");
+						if (lan.equals("cn")) {
+							sb.append(" 正常值:");							
+						} else {
+							sb.append(" normal range:");
+						}
 						sb.append(kpiRecordFz.getStr("FZ_MIN"));
 //						sb.append(vo.getUnit());
 						sb.append("~");
@@ -570,7 +594,11 @@ public class VipInspectDataController {
 						sb.append("    ");
 					}else  if(StringUtils.isNotEmpty(r.getStr("KPI_MAX")) && StringUtils.isNotEmpty(r.getStr("KPI_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append(" normal range:");
+						if (lan.equals("cn")) {
+							sb.append(" 正常值:");							
+						} else {
+							sb.append(" normal range:");
+						}
 						sb.append(r.getStr("KPI_MIN"));
 //						sb.append(vo.getUnit());
 						sb.append("~");
@@ -725,7 +753,11 @@ public class VipInspectDataController {
 			vo.setInspectCode(inspectCode); 
 			
 			//kpi的数据
-			List<Record> desRecordList = Db.find("select DISTINCT des from inspect_kpi_config  where inspect_code  =?",inspectCode);
+			String sql = "select DISTINCT des from inspect_kpi_config  where inspect_code  =?";
+			if (lan.equals("cn")) {
+				sql = "select DISTINCT des from inspect_kpi_config_cn  where inspect_code  =?";
+			}
+			List<Record> desRecordList = Db.find(sql, inspectCode);
 			List<InspectSubTitleVo> CHART_SUBTITLE_LIST = new ArrayList<InspectSubTitleVo>();//List of all the charts
 			boolean matchTab = false;
 			if(desRecordList != null){
@@ -788,7 +820,11 @@ public class VipInspectDataController {
 			Map<String,String> DETAILCODE_NAME_MAP = new HashMap<String,String>();
 			Map<String,String> DETAILCODE_UNIT_MAP = new HashMap<String,String>();
 			//kpi的数据
-			List<Record> kpiRecordList = Db.find("select CODE,NAME,UNIT,KPI_MAX,KPI_MIN from inspect_kpi_config  where des like ?","%,"+code+",%");
+			sql = "select CODE,NAME,UNIT,KPI_MAX,KPI_MIN from inspect_kpi_config  where des like ?";
+			if (lan.equals("cn")) {
+				sql = "select CODE,NAME,UNIT,KPI_MAX,KPI_MIN from inspect_kpi_config_cn  where des like ?";
+			}
+			List<Record> kpiRecordList = Db.find(sql, "%,"+code+",%");
 			StringBuilder sb = new StringBuilder("");
 			Set<String> CODE_SET = new HashSet<String>();
 			if(kpiRecordList != null){
@@ -803,7 +839,11 @@ public class VipInspectDataController {
 					//如果有详细的指标配置，就按详细的年龄和性别来，如果没有，就用默认的
 					if(kpiRecordFz != null && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MAX")) && StringUtils.isNotEmpty(kpiRecordFz.getStr("FZ_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append(" normal range:");
+						if (lan.equals("cn")) {
+							sb.append(" 正常值:");							
+						} else {
+							sb.append(" normal range:");
+						}
 						sb.append(kpiRecordFz.getStr("FZ_MIN"));
 //						sb.append(vo.getUnit());
 						sb.append("~");
@@ -812,7 +852,11 @@ public class VipInspectDataController {
 						sb.append("    ");
 					}else  if(StringUtils.isNotEmpty(r.getStr("KPI_MAX")) && StringUtils.isNotEmpty(r.getStr("KPI_MIN"))){
 						sb.append(r.getStr("NAME"));
-						sb.append(" normal range:");
+						if (lan.equals("cn")) {
+							sb.append(" 正常值:");							
+						} else {
+							sb.append(" normal range:");
+						}
 						sb.append(r.getStr("KPI_MIN"));
 //						sb.append(vo.getUnit());
 						sb.append("~");

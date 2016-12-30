@@ -121,11 +121,11 @@
 		<c:choose>
 			<c:when test="${item.checked}">
 				<!-- <a class="subtitle checked" href="<%=baseChartPath%>vipInspectData/chartall/${data.cardCode }/${data.inspectCode }/${item.code }/${resolution}/0.html">${item.name }</a> -->
-			    <input type="button" name="btns000" id="btns${status.index}" class="subtitlebutton2 checked2"  onfocus="addclass('btns${status.index}')" onblur="removeclass('btns${status.index}')" onClick="linkto('<%=baseChartPath%>vipInspectData/chartall/${data.cardCode }/${data.inspectCode }/${item.code }/${resolution}/0.html')" value="${item.name }"></input>
+			    <input type="button" name="btns000" id="btns${status.index}" class="subtitlebutton2 checked2"  onfocus="addclass('btns${status.index}')" onblur="removeclass('btns${status.index}')" onClick="linkto('<%=baseChartPath%>vipInspectData/chartall/${data.cardCode }/${data.inspectCode }/${item.code }/${resolution}/0.html?lan=${lan}')" value="${item.name }"></input>
 			</c:when>
 			<c:otherwise>
 				<!--<a class="subtitle" href="<%=baseChartPath%>vipInspectData/chartall/${data.cardCode }/${data.inspectCode }/${item.code }/${resolution}/0.html">${item.name }</a>-->
-				<input type="button"  name="btns000" id="btns${status.index}" class=" subtitlebutton2"  onfocus="addclass('btns${status.index}')" onblur="removeclass('btns${status.index}')" onClick="linkto('<%=baseChartPath%>vipInspectData/chartall/${data.cardCode }/${data.inspectCode }/${item.code }/${resolution}/0.html')" value="${item.name }"></input>
+				<input type="button"  name="btns000" id="btns${status.index}" class=" subtitlebutton2"  onfocus="addclass('btns${status.index}')" onblur="removeclass('btns${status.index}')" onClick="linkto('<%=baseChartPath%>vipInspectData/chartall/${data.cardCode }/${data.inspectCode }/${item.code }/${resolution}/0.html?lan=${lan}')" value="${item.name }"></input>
 			</c:otherwise>
 		</c:choose>  
 	</c:forEach>
