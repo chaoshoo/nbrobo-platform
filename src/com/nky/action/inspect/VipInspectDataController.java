@@ -194,17 +194,29 @@ public class VipInspectDataController {
 						vo.setSerie1Name(DETAILCODE_NAME_MAP.get(detailCode));
 						vo.setSerie1Unit(DETAILCODE_UNIT_MAP.get(detailCode));
 						if(detailCode.equals("PR")){
-							s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							if (null != getKeyValue(detailCode,tmp)) {
+								s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							}
 						}else if(detailCode.equals("SYS")){
-							s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							if (null != getKeyValue(detailCode,tmp)) {
+								s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							}
 						}else if(detailCode.equals("DIA")){
-							s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							if (null != getKeyValue(detailCode,tmp)) {
+								s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							}
 						}else if(detailCode.equals("GLU0")){
-							s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							if (null != getKeyValue(detailCode,tmp)) {
+								s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							}
 						}else if(detailCode.equals("GLU1")){
-							s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							if (null != getKeyValue(detailCode,tmp)) {
+								s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							}
 						}else if(detailCode.equals("GLU2")){
-							s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							if (null != getKeyValue(detailCode,tmp)) {
+								s1.add(getKeyValue(detailCode,tmp));//tmp.getStr("PR"));
+							}
 						}
 					}else{
 						int i = 0;
@@ -213,15 +225,21 @@ public class VipInspectDataController {
 							if(i == 1){
 								vo.setSerie1Name(entry.getValue());
 								vo.setSerie1Unit(DETAILCODE_UNIT_MAP.get(entry.getKey()));
-								s1.add(getKeyValue(entry.getKey(),tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry.getKey(), tmp)) {
+									s1.add(getKeyValue(entry.getKey(),tmp));//tmp.getStr("PR"));
+								}
 							}else if(i == 2){
 								vo.setSerie2Name(entry.getValue());
 								vo.setSerie2Unit(DETAILCODE_UNIT_MAP.get(entry.getKey()));
-								s2.add(getKeyValue(entry.getKey(),tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry.getKey(), tmp)) {
+									s2.add(getKeyValue(entry.getKey(),tmp));//tmp.getStr("PR"));
+								}
 							}else if(i == 3){
 								vo.setSerie3Name(entry.getValue());
 								vo.setSerie3Unit(DETAILCODE_UNIT_MAP.get(entry.getKey()));
-								s3.add(getKeyValue(entry.getKey(),tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry.getKey(), tmp)) {
+									s3.add(getKeyValue(entry.getKey(),tmp));//tmp.getStr("PR"));
+								}
 							}
 							if(maxLine<i){
 								maxLine = i;
@@ -373,15 +391,21 @@ public class VipInspectDataController {
 							if(i == 1){
 								vo.setSerie1Name(entry);
 								vo.setSerie1Unit(DETAILCODE_UNIT_MAP.get(entry));
-								s1.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry, tmp)) {
+									s1.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								}
 							}else if(i == 2){
 								vo.setSerie2Name(entry);
 								vo.setSerie2Unit(DETAILCODE_UNIT_MAP.get(entry));
-								s2.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry, tmp)) {
+									s2.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								}
 							}else if(i == 3){
 								vo.setSerie3Name(entry);
 								vo.setSerie3Unit(DETAILCODE_UNIT_MAP.get(entry));
-								s3.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry, tmp)) {
+									s3.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								}
 							}
 							if(maxLine<i){
 								maxLine = i;
@@ -604,15 +628,21 @@ public class VipInspectDataController {
 							if(i == 1){
 								vo.setSerie1Name(entry);
 //								vo.setSerie1Unit(DETAILCODE_UNIT_MAP.get(entry));
-								s1.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry, tmp)) {
+									s1.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								}
 							}else if(i == 2){
 								vo.setSerie2Name(entry);
 //								vo.setSerie2Unit(DETAILCODE_UNIT_MAP.get(entry));
-								s2.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry, tmp)) {
+									s2.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								}
 							}else if(i == 3){
 								vo.setSerie3Name(entry);
 //								vo.setSerie3Unit(DETAILCODE_UNIT_MAP.get(entry));
-								s3.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry, tmp)) {
+									s3.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								}
 							}
 							if(maxLine<i){
 								maxLine = i;
@@ -834,15 +864,21 @@ public class VipInspectDataController {
 							if(i == 1){
 								vo.setSerie1Name(entry);
 //								vo.setSerie1Unit(DETAILCODE_UNIT_MAP.get(entry));
-								s1.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry, tmp)) {
+									s1.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								}
 							}else if(i == 2){
 								vo.setSerie2Name(entry);
 //								vo.setSerie2Unit(DETAILCODE_UNIT_MAP.get(entry));
-								s2.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry, tmp)) {
+									s2.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								}
 							}else if(i == 3){
 								vo.setSerie3Name(entry);
 //								vo.setSerie3Unit(DETAILCODE_UNIT_MAP.get(entry));
-								s3.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								if (null != getKeyValue(entry, tmp)) {
+									s3.add(getKeyValue(entry,tmp));//tmp.getStr("PR"));
+								}
 							}
 							if(maxLine<i){
 								maxLine = i;
@@ -910,7 +946,11 @@ public class VipInspectDataController {
 	 * @return
 	 */
 	private BigDecimal getKeyValue(String key,Record rTmp){
-		return new BigDecimal(rTmp.getStr(key)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		try {
+			return new BigDecimal(rTmp.getStr(key).trim()).setScale(2, BigDecimal.ROUND_HALF_UP);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@RequestMapping(value = "/single")
