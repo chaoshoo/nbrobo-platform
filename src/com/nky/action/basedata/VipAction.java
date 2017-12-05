@@ -484,7 +484,7 @@ public class VipAction extends BaseAction {
     	return d;
     }
     
-    @RequestMapping(value = "/inspectlatest/{cardCode}", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "/inspectlatest/{cardCode}", method = RequestMethod.GET, produces = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Data inspectlatest(HttpServletRequest request,@PathVariable("cardCode")String cardCode) {
